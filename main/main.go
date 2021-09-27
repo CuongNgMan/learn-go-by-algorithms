@@ -83,7 +83,6 @@ func main() {
 
 	//foundIndex := searcher.LinearSearch(inputArr, value)
 	foundIndex := searcher.BinarySearch(inputArr, value)
-
 	if foundIndex != -1 {
 		fmt.Printf("Found %d at index %d", value, foundIndex)
 	} else {
@@ -112,10 +111,9 @@ func main() {
 	fmt.Println("Doubly Linked-List")
 	dl := list.NewDoublyLinkedList()
 	dl.Init([]string{"America", "Berlin", "Congo", "Denmark", "England", "France"})
-	//dl.Init([]string{"America", "Berlin"})
+	dl.Insert("Vietnam", 2)
+	dl.Insert("Russia", 8)
+	dl.Delete(0)
 	dl.OutputFromHead()
 	dl.OutputFromTail()
-
-
-
 }
