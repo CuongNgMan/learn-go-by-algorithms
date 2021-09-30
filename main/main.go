@@ -116,4 +116,16 @@ func main() {
 	dl.Delete(0)
 	dl.OutputFromHead()
 	dl.OutputFromTail()
+
+	/*
+	* Data structure - One-way Circular LinkedList
+	*/
+	fmt.Println("One-way Circular LinkedList")
+	cLL := list.NewOneWayCirularLinkedList()
+	cLL.Init([]string{"A", "C", "D", "G"})
+	cLL.Insert(1, "B")
+	cLL.Insert(4, "E")
+	cLL.Insert(5, "F")
+	cLL.OutputFromHead()
+	cLL.OutputFromTail()
 }
