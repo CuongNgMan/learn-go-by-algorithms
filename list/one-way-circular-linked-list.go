@@ -127,8 +127,77 @@ func (cLL *OneWayCircularLL) Insert(position int, v string) (bool, error) {
 	return true, nil
 }
 
+func (cLL *OneWayCircularLL) Delete(position int) (bool, error) {
+	if cLL == nil {
+		return false, errors.New("instance is nil")
+	}
+	if position < 0 || position >= cLL.Length {
+		return false, errors.New("Invalid position")
+	}
+
+	switch {
+	case cLL.Length == 0:
+		return true, nil
+	case cLL.Length == 1:
+		cLL.Head = nil
+		cLL.Tail = nil
+		cLL.Length -= 1
+		return true, nil
+	case position == 0:
+		newHead := cLL.Head.next
+		if newHead == cLL.Tail {
+			newHead.next = nil
+			cLL.Tail.next = nil
+			cLL.Head = newHead
+			cLL.Tail = newHead
+		} else {
+			cLL.Head = newHead
+			cLL.Tail.next = cLL.Head
+		}
+
+		cLL.Length -= 1
+		return true, nil
+	default:
+		p:= cLL.Head
+		c:= 0
+		for {
+			if p.next == nil || c >= position - 1 {
+				break
+			}
+			p = p.next
+			c++
+		}
+
+		// Special case
+		if p.next == cLL.Tail {
+			p.next = cLL.Tail.next
+			cLL.Tail = p
+			cLL.Length--
+		} else {
+			deletedNode := p.next
+			p.next = deletedNode.next
+			deletedNode.next = nil
+			cLL.Length--
+		}
+	}
+
+	return true, nil
+}
+
 func (cLL *OneWayCircularLL) OutputFromHead() {
 	p := cLL.Head
+
+	if cLL.Length == 0 {
+		fmt.Println("Empty")
+		return
+	}
+
+	if cLL.Length == 1 {
+		fmt.Printf("%s -> Done", cLL.Head.data)
+		fmt.Println()
+		return
+	}
+
 	for {
 		if p == nil {
 			break
@@ -149,6 +218,18 @@ func (cLL *OneWayCircularLL) OutputFromHead() {
 
 func (cLL *OneWayCircularLL) OutputFromTail() {
 	p := cLL.Tail
+
+	if cLL.Length == 0 {
+		fmt.Println("Empty")
+		return
+	}
+
+	if cLL.Length == 1 {
+		fmt.Printf("%s -> Done", cLL.Tail.data)
+		fmt.Println()
+		return
+	}
+
 	for {
 		if p == nil {
 			return

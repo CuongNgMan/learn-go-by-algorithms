@@ -122,10 +122,16 @@ func main() {
 	*/
 	fmt.Println("One-way Circular LinkedList")
 	cLL := list.NewOneWayCirularLinkedList()
-	cLL.Init([]string{"A", "C", "D", "G"})
-	cLL.Insert(1, "B")
+	cLL.Init([]string{"A", "B", "C", "D"})
+	cLL.Insert(1, "G")
 	cLL.Insert(4, "E")
 	cLL.Insert(5, "F")
+
+	_, err := cLL.Delete(3)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	cLL.OutputFromHead()
 	cLL.OutputFromTail()
 }
